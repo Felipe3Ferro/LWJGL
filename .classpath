@@ -5,6 +5,8 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/lwjgl"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jarlwjgl"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
