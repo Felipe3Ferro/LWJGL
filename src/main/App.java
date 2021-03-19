@@ -1,53 +1,47 @@
 package main;
 
+import org.lwjgl.glfw.GLFW;
+
+import engine.Input;
 import engine.Window;
 
-public class App implements Runnable{
-	public static Window window;
-	public static final int WIDTH = 1200, HEIGHT = 760;
+public class App implements Runnable {
 	public Thread game;
-	public int frames;
-	public static long time;
-	
+	public Window window;
+	public final int WIDTH = 1280, HEIGHT = 760;
 	
 	public void start() {
 		game = new Thread(this, "game");
 		game.start();
 	}
 	
-	public static void init() {
-		System.out.println("Initializing Game!");
+	public void init() {
 		window = new Window(WIDTH, HEIGHT, "Game");
 		window.create();
-		time = System.currentTimeMillis();
 	}
 	
 	public void run() {
 		init();
-		while(!window.shouldClose()) {
+		while (!window.shouldClose()) {
 			update();
 			render();
+			if (Input.isKeyDown(GLFW.GLFW_KEY_ESCAPE)) {
+				return;
+			}
 		}
+		window.destroy();
 	}
 	
-	public void update() {
-		//System.out.println("Updating Game!");
+	private void update() {
 		window.update();
-		frames ++;
-		if(System.currentTimeMillis() > time + 1000) {
-			System.out.println(frames);
-			time = System.currentTimeMillis();
-			frames = 0;
-		}
+		if (Input.isButtonDown(GLFW.GLFW_MOUSE_BUTTON_LEFT)) System.out.println("X: " + Input.getMouseX() + ", Y: " + Input.getMouseY());
 	}
 	
-	public void render() {
-		//System.out.println("Rendering Game!");
+	private void render() {
 		window.swapBuffers();
 	}
 	
 	public static void main(String[] args) {
 		new App().start();
 	}
-
 }
